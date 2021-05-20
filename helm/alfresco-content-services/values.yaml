@@ -542,6 +542,34 @@ alfresco-digital-workspace:
       cpu: 150m
       memory: 256Mi
 
+alfresco-admin-app:
+  enabled: true
+  nameOverride: alfresco-admin-app
+  image:
+    repository: quay.io/alfresco/alfresco-admin-app
+    tag: develop-12457
+    pullPolicy: Always
+  service:
+    name: admin-app
+    envType: frontend
+  applications:
+    allowCustomResources: true
+  env:
+    APP_CONFIG_AUTH_TYPE: "BASIC"
+  ingress:
+    path: /admin
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      nginx.ingress.kubernetes.io/enable-cors: "true"
+      nginx.ingress.kubernetes.io/cors-allow-headers: Authorization, Content-Type, Accept
+  resources:
+    limits:
+      cpu: 500m
+      memory: 1024Mi
+    requests:
+      cpu: 200m
+      memory: 256Mi
+
 # -- Choose if you want Office Online Integration capabilities
 ooi:
   enabled: false

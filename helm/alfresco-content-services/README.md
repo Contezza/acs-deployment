@@ -18,8 +18,9 @@ A Helm chart for deploying Alfresco Content Services
 |  | alfresco-search | 1.0.4 |
 |  | alfresco-sync-service | 3.0.8 |
 | https://activiti.github.io/activiti-cloud-helm-charts | alfresco-digital-workspace(common) | 7.1.0-M12 |
-| https://charts.bitnami.com/bitnami | postgresql | 8.9.6 |
+| https://activiti.github.io/activiti-cloud-helm-charts | alfresco-admin-app(common) | 7.1.0-M12 |
 | https://charts.bitnami.com/bitnami | postgresql-syncservice(postgresql) | 8.9.6 |
+| https://charts.bitnami.com/bitnami | postgresql | 8.9.6 |
 
 ## Values
 
@@ -56,6 +57,23 @@ Hence, setting up explicit Container memory and then assigning a percentage of i
 | aiTransformer.service.externalPort | int | `80` |  |
 | aiTransformer.service.name | string | `"ai-transformer"` |  |
 | aiTransformer.service.type | string | `"ClusterIP"` |  |
+| alfresco-admin-app.applications.allowCustomResources | bool | `true` |  |
+| alfresco-admin-app.enabled | bool | `true` |  |
+| alfresco-admin-app.env.APP_CONFIG_AUTH_TYPE | string | `"BASIC"` |  |
+| alfresco-admin-app.image.pullPolicy | string | `"Always"` |  |
+| alfresco-admin-app.image.repository | string | `"quay.io/alfresco/alfresco-admin-app"` |  |
+| alfresco-admin-app.image.tag | string | `"develop-12457"` |  |
+| alfresco-admin-app.ingress.annotations."kubernetes.io/ingress.class" | string | `"nginx"` |  |
+| alfresco-admin-app.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-headers" | string | `"Authorization, Content-Type, Accept"` |  |
+| alfresco-admin-app.ingress.annotations."nginx.ingress.kubernetes.io/enable-cors" | string | `"true"` |  |
+| alfresco-admin-app.ingress.path | string | `"/admin"` |  |
+| alfresco-admin-app.nameOverride | string | `"alfresco-admin-app"` |  |
+| alfresco-admin-app.resources.limits.cpu | string | `"500m"` |  |
+| alfresco-admin-app.resources.limits.memory | string | `"1024Mi"` |  |
+| alfresco-admin-app.resources.requests.cpu | string | `"200m"` |  |
+| alfresco-admin-app.resources.requests.memory | string | `"256Mi"` |  |
+| alfresco-admin-app.service.envType | string | `"frontend"` |  |
+| alfresco-admin-app.service.name | string | `"admin-app"` |  |
 | alfresco-digital-workspace.enabled | bool | `true` |  |
 | alfresco-digital-workspace.env.API_URL | string | `"{protocol}//{hostname}{:port}"` |  |
 | alfresco-digital-workspace.env.APP_CONFIG_AUTH_TYPE | string | `"BASIC"` |  |
