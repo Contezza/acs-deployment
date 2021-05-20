@@ -46,6 +46,7 @@ branches:
     - master
     - /feature.*/
     - /fix.*/
+    - acs_plus_aaa
 
 before_install:
   - |
