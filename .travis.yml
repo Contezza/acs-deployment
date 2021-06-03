@@ -44,6 +44,7 @@ branches:
     - master
     - /feature.*/
     - /fix.*/
+    - policy_ifpresent
 
 before_install:
   - |
