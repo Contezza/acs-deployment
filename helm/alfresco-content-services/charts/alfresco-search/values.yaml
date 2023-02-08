@@ -145,4 +145,3 @@ replication:
   persistence:
     volumeSizeRequest: 10Gi
     storageClassName: "default"
-  test: test
