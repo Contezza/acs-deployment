@@ -1,0 +1,33 @@
+---
+name: Pre-commit (Helm)
+
+on:
+  pull_request:
+    branches:
+      - "master"
+    paths:
+      - "helm/**"
+      - "test/postman/helm/**"
+      - ".github/workflows/helm*"
+      - "**.md"
+      - ".pre-commit-config.yaml"
+  push:
+    branches:
+      - "master"
+
+env:
+  # https://pre-commit.com/#temporarily-disabling-hooks
+  SKIP: docker-compose-check,helm-docs
+
+jobs:
+  pre_commit:
+    name: Run pre-commit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use local dependencies
+        uses: ./.github/actions/use-local-deps
+        with:
+          charts-root: helm
+          chart-name: alfresco-content-services
+      - uses: pre-commit/action@v3.0.0

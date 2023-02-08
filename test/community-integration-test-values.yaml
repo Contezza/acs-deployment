@@ -1,0 +1,100 @@
+---
+repository:
+  resources:
+    requests:
+      cpu: "0.01"
+      memory: "1024Mi"
+    limits:
+      memory: "1560Mi"
+  edition: Community
+  replicaCount: 1
+  persistence:
+    accessModes:
+      - ReadWriteOnce
+  image:
+    repository: alfresco/alfresco-content-repository-community
+share:
+  resources:
+    requests:
+      cpu: "0.01"
+      memory: "256Mi"
+    limits:
+      memory: "512Mi"
+  replicaCount: 1
+  image:
+    repository: alfresco/alfresco-share
+pdfrenderer:
+  resources:
+    requests:
+      cpu: "0.01"
+      memory: "256Mi"
+    limits:
+      memory: "512Mi"
+  replicaCount: 1
+imagemagick:
+  resources:
+    requests:
+      cpu: "0.01"
+      memory: "256Mi"
+    limits:
+      memory: "512Mi"
+  replicaCount: 1
+libreoffice:
+  resources:
+    requests:
+      cpu: "0.01"
+      memory: "512Mi"
+    limits:
+      memory: "1024Mi"
+  replicaCount: 1
+tika:
+  resources:
+    requests:
+      cpu: "0.01"
+      memory: "256Mi"
+    limits:
+      memory: "512Mi"
+  replicaCount: 1
+transformmisc:
+  resources:
+    requests:
+      cpu: "0.01"
+      memory: "256Mi"
+    limits:
+      memory: "512Mi"
+  replicaCount: 1
+alfresco-search:
+  resources:
+    requests:
+      cpu: "0.01"
+      memory: "512Mi"
+    limits:
+      memory: "1024Mi"
+  searchServicesImage:
+    repository: alfresco/alfresco-search-services
+# Disable features
+alfresco-digital-workspace:
+  enabled: false
+alfresco-sync-service:
+  syncservice:
+    enabled: false
+postgresql:
+  resources:
+    requests:
+      cpu: "0.01"
+postgresql-syncservice:
+  enabled: false
+ai:
+  enabled: false
+s3connector:
+  enabled: false
+email:
+  server:
+    enabled: false
+  inbound:
+    enabled: false
+imap:
+  server:
+    enabled: false
+alfresco-admin-app:
+  enabled: false

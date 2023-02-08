@@ -1,0 +1,39 @@
+---
+name: Docker Compose (Enterprise)
+on:
+  pull_request:
+    branches:
+      - 'master'
+    paths:
+      - '! docker-compose/community-docker-compose.yml'
+      - 'docker-compose/**'
+      - 'test/postman/docker-compose/**'
+      - '.github/workflows/enterprise-compose.yml'
+  push:
+    branches:
+      - 'master'
+jobs:
+  compose_enterprise:
+    name: docker-compose enterprise
+    strategy:
+      fail-fast: true
+      matrix:
+        compose_file:
+          - docker-compose.yml
+          - 7.2.N-docker-compose.yml
+          - 7.1.N-docker-compose.yml
+          - 7.0.N-docker-compose.yml
+    runs-on: ubuntu-latest
+    if: >-
+      github.event_name == 'push'
+      || (
+        ! github.event.pull_request.head.repo.fork
+        && github.event.pull_request.head.user.login == 'Alfresco'
+      )
+    steps:
+      - uses: >-
+          Alfresco/alfresco-build-tools/.github/actions/dbp-charts/verify-compose@v1.33.0
+        with:
+          compose_file_path: docker-compose/${{ matrix.compose_file }}
+          quay_username: ${{ secrets.QUAY_USERNAME }}
+          quay_password: ${{ secrets.QUAY_PASSWORD }}
