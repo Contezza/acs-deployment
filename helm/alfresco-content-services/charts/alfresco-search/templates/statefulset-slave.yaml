@@ -28,7 +28,7 @@ spec:
     {{- end }}
     {{- with .Values.replication.nodeSelector }}
       nodeSelector:
-      {{ toYaml . | indent 2 }}
+{{ toYaml . | indent 8 }}
     {{- end }}
       affinity:
         podAntiAffinity:
