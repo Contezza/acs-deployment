@@ -1,0 +1,91 @@
+
+global:
+  alfrescoRegistryPullSecrets: regcred
+
+persistence:
+  storageClass:
+    enabled: true
+    accessModes:
+      - ReadWriteMany
+    name: "azurefile-csi-nfs"
+
+repository:
+  replicaCount: 1
+  image:
+    repository: harbor.contezza.nl/quay.io/alfresco/alfresco-content-repository
+
+share:
+  replicaCount: 1
+  image:
+    repository: harbor.contezza.nl/quay.io/alfresco/alfresco-share
+
+alfresco-search:
+  searchServicesImage:
+    repository: alfresco/alfresco-search-services
+  tolerations:
+    - key: "kubernetes.azure.com/scalesetpriority"
+      operator: "Equal"
+      value: "spot"
+      effect: "NoSchedule"
+  replication:
+    enabled: true
+    persistence:
+      volumeSizeRequest: 25Gi
+      storageClassName: "default"
+
+
+transformrouter:
+  replicaCount: 1
+  image:
+    repository: harbor.contezza.nl/quay.io/alfresco/alfresco-transform-router
+
+
+pdfrenderer:
+  replicaCount: 1
+  image:
+    repository: harbor.contezza.nl/quay.io/alfresco/alfresco-pdf-renderer
+    tag: 2.6.0
+
+imagemagick:
+  replicaCount: 1
+  image:
+    repository: harbor.contezza.nl/quay.io/alfresco/alfresco-imagemagick
+
+libreoffice:
+  replicaCount: 1
+  image:
+    repository: harbor.contezza.nl/quay.io/alfresco/alfresco-libreoffice
+
+tika:
+  replicaCount: 1
+  image:
+    repository: harbor.contezza.nl/quay.io/alfresco/alfresco-tika
+
+filestore:
+  image:
+    repository: harbor.contezza.nl/quay.io/alfresco/alfresco-shared-file-store
+
+transformmisc:
+  enabled: false
+
+
+alfresco-digital-workspace:
+  enabled: false
+alfresco-sync-service:
+  syncservice:
+    enabled : false
+postgresql-syncservice:
+  enabled: false
+ai:
+  enabled: false
+s3connector:
+  enabled: false
+email:
+  server:
+    enabled: false
+  inbound:
+    enabled: false
+imap:
+  server:
+    enabled: false
+
