@@ -20,19 +20,7 @@ share:
     repository: harbor.contezza.nl/quay.io/alfresco/alfresco-share
 
 alfresco-search:
-  searchServicesImage:
-    repository: alfresco/alfresco-search-services
-  tolerations:
-    - key: "kubernetes.azure.com/scalesetpriority"
-      operator: "Equal"
-      value: "spot"
-      effect: "NoSchedule"
-  replication:
-    enabled: true
-    persistence:
-      volumeSizeRequest: 25Gi
-      storageClassName: "default"
-
+  enabled: false
 
 transformrouter:
   replicaCount: 1
