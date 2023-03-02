@@ -351,6 +351,7 @@ libreoffice:
     limits:
       cpu: "4"
       memory: "1000Mi"
+  podLabels: {}
   podSecurityContext:
     runAsNonRoot: true
     runAsUser: 33003
