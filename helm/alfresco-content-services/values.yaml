@@ -68,6 +68,7 @@ repository:
       -Dmetadata-keystore.aliases=metadata
       -Dmetadata-keystore.metadata.algorithm=DESede
   podAnnotations: {}
+  podLabels: {}
   podSecurityContext:
     runAsNonRoot: true
     runAsUser: 33000
@@ -239,6 +240,7 @@ transformrouter:
     initialDelaySeconds: 140
     periodSeconds: 120
     timeoutSeconds: 60
+  podLabels: {}
   podSecurityContext:
     runAsNonRoot: true
     runAsUser: 33016
@@ -263,6 +265,7 @@ pdfrenderer:
     name: pdfrenderer
     type: ClusterIP
     externalPort: 80
+  podLabels: {}
   podSecurityContext:
     runAsNonRoot: true
     runAsUser: 33001
@@ -303,6 +306,7 @@ imagemagick:
     name: imagemagick
     type: ClusterIP
     externalPort: 80
+  podLabels: {}
   podSecurityContext:
     runAsNonRoot: true
     runAsUser: 33002
@@ -350,6 +354,7 @@ libreoffice:
     limits:
       cpu: "4"
       memory: "1000Mi"
+  podLabels: {}
   podSecurityContext:
     runAsNonRoot: true
     runAsUser: 33003
@@ -383,6 +388,7 @@ tika:
     name: tika
     type: ClusterIP
     externalPort: 80
+  podLabels: {}
   podSecurityContext:
     runAsNonRoot: true
     runAsUser: 33004
@@ -424,6 +430,7 @@ transformmisc:
     name: transformmisc
     type: ClusterIP
     externalPort: 80
+  podLabels: {}
   podSecurityContext:
     runAsNonRoot: true
     runAsUser: 33006
@@ -511,6 +518,7 @@ filestore:
     type: ClusterIP
     externalPort: 80
   podAnnotations: {}
+  podLabels: {}
   podSecurityContext:
     runAsUser: 33030
     runAsGroup: 1000
@@ -578,6 +586,7 @@ share:
       drop:
         - NET_RAW
         - ALL
+  podLabels: {}
   podSecurityContext:
     runAsNonRoot: true
   resources:

@@ -22,6 +22,9 @@ spec:
         checksum/config: {{ include (print $.Template.BasePath "/config-libreoffice.yaml") . | sha256sum }}
       labels:
         {{- include "libreoffice.selectorLabels" . | nindent 8 }}
+        {{- with .Values.libreoffice.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
     spec:
     {{- include "component-pod-security-context" .Values.libreoffice | indent 4 }}
     {{- if .Values.libreoffice.nodeSelector }}
