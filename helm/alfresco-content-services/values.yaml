@@ -240,6 +240,7 @@ transformrouter:
     initialDelaySeconds: 140
     periodSeconds: 120
     timeoutSeconds: 60
+  podLabels: {}
   podSecurityContext:
     runAsNonRoot: true
     runAsUser: 33016
@@ -387,6 +388,7 @@ tika:
     name: tika
     type: ClusterIP
     externalPort: 80
+  podLabels: {}
   podSecurityContext:
     runAsNonRoot: true
     runAsUser: 33004
@@ -428,6 +430,7 @@ transformmisc:
     name: transformmisc
     type: ClusterIP
     externalPort: 80
+  podLabels: {}
   podSecurityContext:
     runAsNonRoot: true
     runAsUser: 33006
