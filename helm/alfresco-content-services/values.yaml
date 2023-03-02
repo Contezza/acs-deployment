@@ -68,6 +68,7 @@ repository:
       -Dmetadata-keystore.aliases=metadata
       -Dmetadata-keystore.metadata.algorithm=DESede
   podAnnotations: {}
+  podLabels: {}
   podSecurityContext:
     runAsNonRoot: true
     runAsUser: 33000

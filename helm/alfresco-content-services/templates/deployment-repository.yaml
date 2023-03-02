@@ -30,6 +30,9 @@ spec:
         {{- end }}
       labels:
         {{- include "repository.selectorLabels" . | nindent 8 }}
+        {{- with .Values.repository.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
     spec:
     {{- include "component-pod-security-context" .Values.repository | indent 4 }}
     {{- if .Values.repository.nodeSelector }}
