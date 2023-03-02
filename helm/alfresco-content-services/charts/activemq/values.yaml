@@ -9,6 +9,7 @@ image:
 adminUser:
   # -- An existing kubernetes secret that contains BROKER_USERNAME and BROKER_PASSWORD keys
   existingSecretName:
+podAnnotations: {}
 podSecurityContext:
   runAsUser: 33031
   runAsGroup: 1000
