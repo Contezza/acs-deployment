@@ -583,6 +583,7 @@ share:
       drop:
         - NET_RAW
         - ALL
+  podLabels: {}
   podSecurityContext:
     runAsNonRoot: true
   resources:
