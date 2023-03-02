@@ -511,6 +511,7 @@ filestore:
     type: ClusterIP
     externalPort: 80
   podAnnotations: {}
+  podLabels: {}
   podSecurityContext:
     runAsUser: 33030
     runAsGroup: 1000
