@@ -958,6 +958,7 @@ metadataKeystore:
   # keyPassword: ""
   defaultKeystorePassword: "mp6yc0UD9e"
   defaultKeyPassword: "oKIWzVdEdA"
+  existingSecretName:
 alfresco-sync-service:
   messageBroker: *acs_messageBroker
   nodeSelector: {}
