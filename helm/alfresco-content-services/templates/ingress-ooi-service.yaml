@@ -1,4 +1,4 @@
-{{- if .Values.ooi.enabled }}
+{{- if and .Values.ooi.enabled .Values.ooiService.ingress.enabled }}
 {{- $serviceName :=  printf "%s-%s" (include "content-services.shortname" .) "ooi-service" -}}
 {{- $servicePort := .Values.ooiService.service.externalPort -}}
 apiVersion: {{ template "common.capabilities.ingress.apiVersion" . }}

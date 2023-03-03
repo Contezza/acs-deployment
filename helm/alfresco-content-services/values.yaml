@@ -137,6 +137,7 @@ ooiService:
     type: ClusterIP
     externalPort: 80
   ingress:
+    enabled: true
     path: /ooi-service
     tls: []
     #  - secretName: chart-example-tls
