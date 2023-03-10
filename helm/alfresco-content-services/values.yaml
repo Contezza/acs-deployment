@@ -56,8 +56,11 @@ repository:
     #  - secretName: chart-example-tls
     #    hosts:
     #      - chart-example.local
+  java_opts_secrets:
+    enabled: false
   environment:
     JAVA_OPTS: >-
+      $JAVA_OPTS_SECRETS
       -Dtransform.service.enabled=true
       -XX:MinRAMPercentage=50
       -XX:MaxRAMPercentage=80
@@ -958,6 +961,7 @@ metadataKeystore:
   # keyPassword: ""
   defaultKeystorePassword: "mp6yc0UD9e"
   defaultKeyPassword: "oKIWzVdEdA"
+  existingSecretName:
 alfresco-sync-service:
   messageBroker: *acs_messageBroker
   nodeSelector: {}
