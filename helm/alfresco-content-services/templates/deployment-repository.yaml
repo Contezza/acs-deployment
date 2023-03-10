@@ -70,7 +70,7 @@ spec:
               name: {{ default (printf "%s-repository-secret" (include "content-services.shortname" .)) .Values.repository.existingSecretName }}
           {{- if .Values.repository.java_opts_secrets.enabled }}
           - secretRef:
-              name: {{ template "content-services.shortname" . }}-JAVA_OPTS_SECRETS
+              name: {{ template "content-services.shortname" . }}-java-opts-secrets
           {{- end }}
           - configMapRef:
               # config map to use, defined in config-repository.yaml
