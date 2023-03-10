@@ -59,7 +59,7 @@ repository:
   java_opts_secrets:
     enabled: false
   environment:
-    JAVA_OPTS: >-
+    JAVA_OPTS: " $JAVA_OPTS_SECRETS
       -Dtransform.service.enabled=true
       -XX:MinRAMPercentage=50
       -XX:MaxRAMPercentage=80
@@ -69,6 +69,7 @@ repository:
       -Dencryption.keystore.location=/usr/local/tomcat/shared/classes/alfresco/extension/keystore/keystore
       -Dmetadata-keystore.aliases=metadata
       -Dmetadata-keystore.metadata.algorithm=DESede
+      "
   podAnnotations: {}
   podLabels: {}
   podSecurityContext:
