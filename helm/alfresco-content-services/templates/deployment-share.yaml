@@ -47,12 +47,36 @@ spec:
           ports:
             - containerPort: {{ .Values.share.image.internalPort }}
           resources: {{- toYaml .Values.share.resources | nindent 12 }}
+          env:
+          {{- if and (.Values.global.elasticAPM) (.Values.global.elasticAPM.enabled) }}
+          - name: ELASTIC_APM_SERVER_URLS
+            value: {{ .Values.global.elasticAPM.containers.env.serverUrls}}
+          - name: ELASTIC_APM_SERVICE_NAME
+            value: "share"
+          - name: ELASTIC_APM_APPLICATION_PACKAGES
+            value: com.alfresco,org.alfresco,nl.amsterdam
+          - name: ELASTIC_APM_ENVIRONMENT
+            value: {{ .Values.global.elasticAPM.containers.env.environment }}
+          - name: ELASTIC_APM_LOG_LEVEL
+            value: {{ .Values.global.elasticAPM.containers.env.logLevel }}
+          - name: ELASTIC_APM_SECRET_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.global.elasticAPM.containers.env.secretToken.name}}
+                key: {{ .Values.global.elasticAPM.containers.env.secretToken.key }}
+          - name: JAVA_TOOL_OPTIONS
+            value: {{ .Values.global.elasticAPM.containers.env.javaToolOptions }}
+          {{- end }}
           envFrom:
           - configMapRef:
               name: {{ template "content-services.shortname" . }}-share-configmap
           {{- if .Values.share.extraVolumeMounts }}
           volumeMounts:
 {{ toYaml .Values.share.extraVolumeMounts | indent 10 }}
+          {{- if and (.Values.global.elasticAPM) (.Values.global.elasticAPM.enabled) }}
+            - name: {{ .Values.global.elasticAPM.containers.volumeMounts.name }}
+              mountPath: {{ .Values.global.elasticAPM.containers.volumeMounts.mountPath }}
+          {{- end }}
           {{- end }}
           readinessProbe:
             httpGet:
@@ -73,11 +97,24 @@ spec:
             preStop:
               exec:
                 command: ["/bin/bash", "-c", "sleep 20"]
-      {{- if .Values.share.extraInitContainers }}
       initContainers:
+      {{- if .Values.share.extraInitContainers }}
 {{ tpl .Values.share.extraInitContainers . | indent 8 }}
       {{- end }}
-      {{- if .Values.share.extraVolumes }}
+      {{- if and (.Values.global.elasticAPM) (.Values.global.elasticAPM.enabled) }}
+        - name: elastic-java-agent
+          image: {{ .Values.global.elasticAPM.initContainers.image }}
+          volumeMounts:
+          - mountPath: {{ .Values.global.elasticAPM.initContainers.volumeMounts.mountPath }}
+            name: {{ .Values.global.elasticAPM.initContainers.volumeMounts.name }}
+          command: ['cp', '-v', '/usr/agent/elastic-apm-agent.jar', '/elastic/apm/agent']
+      {{- end }}
       volumes:
+      {{- if .Values.share.extraVolumes }}
 {{ toYaml .Values.share.extraVolumes | indent 6 }}
       {{- end }}
+      {{- if and (.Values.global.elasticAPM) (.Values.global.elasticAPM.enabled) }}
+      - name: elastic-apm-agent
+        emptyDir: {}
+      {{- end }}
+      

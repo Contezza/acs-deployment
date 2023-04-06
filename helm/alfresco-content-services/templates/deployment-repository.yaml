@@ -51,6 +51,26 @@ spec:
 {{ tpl .Values.repository.command . | indent 12 }}
           {{- end }}
           {{- include "component-security-context" .Values.repository | indent 8 }}
+          env:
+          {{- if and (.Values.global.elasticAPM) (.Values.global.elasticAPM.enabled) }}
+          - name: ELASTIC_APM_SERVER_URLS
+            value: {{ .Values.global.elasticAPM.containers.env.serverUrls}}
+          - name: ELASTIC_APM_SERVICE_NAME
+            value: "repository"
+          - name: ELASTIC_APM_APPLICATION_PACKAGES
+            value: com.alfresco,org.alfresco,nl.amsterdam
+          - name: ELASTIC_APM_ENVIRONMENT
+            value: {{ .Values.global.elasticAPM.containers.env.environment }}
+          - name: ELASTIC_APM_LOG_LEVEL
+            value: {{ .Values.global.elasticAPM.containers.env.logLevel }}
+          - name: ELASTIC_APM_SECRET_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.global.elasticAPM.containers.env.secretToken.name}}
+                key: {{ .Values.global.elasticAPM.containers.env.secretToken.key }}
+          - name: JAVA_TOOL_OPTIONS
+            value: {{ .Values.global.elasticAPM.containers.env.javaToolOptions }}
+          {{- end }}
           envFrom:
           - secretRef:
               name: {{ default (printf "%s-dbsecret" (include "content-services.shortname" $)) $.Values.postgresql.existingSecretName }}
@@ -102,6 +122,11 @@ spec:
           - name: dev-log4j-properties-volume
             mountPath: /usr/local/tomcat/shared/classes/alfresco/extension/dev-log4j.properties
             subPath: dev-log4j.properties
+          {{- end }}
+          {{- if and (.Values.global.elasticAPM) (.Values.global.elasticAPM.enabled) }}
+          volumeMounts:
+            - name: {{ .Values.global.elasticAPM.containers.volumeMounts.name }}
+              mountPath: {{ .Values.global.elasticAPM.containers.volumeMounts.mountPath }}
           {{- end }}
           startupProbe:
             httpGet:
@@ -196,6 +221,14 @@ spec:
             - name: email-keystore-volume
               mountPath: /var/run/secrets/java.io/keystores
       {{- end }}
+      {{- if and (.Values.global.elasticAPM) (.Values.global.elasticAPM.enabled) }}
+        - name: elastic-java-agent
+          image: {{ .Values.global.elasticAPM.initContainers.image }}
+          volumeMounts:
+          - mountPath: {{ .Values.global.elasticAPM.initContainers.volumeMounts.mountPath }}
+            name: {{ .Values.global.elasticAPM.initContainers.volumeMounts.name }}
+          command: ['cp', '-v', '/usr/agent/elastic-apm-agent.jar', '/elastic/apm/agent']
+      {{- end }}
       volumes:
       {{- include "data_volume" .Values.repository | nindent 8 }}
       {{- if eq .Values.global.tracking.auth "secret" }}
@@ -249,6 +282,10 @@ spec:
           items:
             - key: ca.crt
               path: ca.crt
+      {{- end }}
+      {{- if and (.Values.global.elasticAPM) (.Values.global.elasticAPM.enabled) }}
+      - name: elastic-apm-agent
+        emptyDir: {}
       {{- end }}
       {{- if .Values.repository.extraVolumes }}
 {{ toYaml .Values.repository.extraVolumes | indent 6 }}
