@@ -1016,3 +1016,24 @@ global:
     user: null
     # -- The password required to access the service, if any
     password: null
+  # -- Shared details for ElasticAPM, required when
+  # elasticAPM.enabled is true
+  elasticAPM:
+    enabled: false
+    containers:
+      env:
+        serverUrls: http://apm-server-apm-http.elastic:8200
+        environment: test
+        logLevel: ERROR
+        secretToken:
+          name: apm-server-apm-token
+          key: secret-token
+        javaToolOptions: -javaagent:/elastic/apm/agent/elastic-apm-agent.jar
+      volumeMounts:
+        mountPath: /elastic/apm/agent
+        name: elastic-apm-agent
+    initContainers:
+      image: docker.elastic.co/observability/apm-agent-java:1.36.0
+      volumeMounts:
+        mountPath: /elastic/apm/agent
+        name: elastic-apm-agent
