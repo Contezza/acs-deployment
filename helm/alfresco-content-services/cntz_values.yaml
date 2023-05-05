@@ -1,0 +1,94 @@
+alfresco-content-services:
+  global:
+    alfrescoRegistryPullSecrets: regcred
+
+  persistence:
+    storageClass:
+      enabled: true
+      accessModes:
+        - ReadWriteMany
+
+  repository:
+    replicaCount: 1
+    image:
+      repository: harbor.contezza.nl/quay.io/alfresco/alfresco-content-repository
+
+  share:
+    replicaCount: 1
+    image:
+      repository: harbor.contezza.nl/quay.io/alfresco/alfresco-share
+
+  alfresco-admin-app:
+    enabled: false
+
+  transformrouter:
+    replicaCount: 1
+    image:
+      repository: harbor.contezza.nl/quay.io/alfresco/alfresco-transform-router
+
+  pdfrenderer:
+    replicaCount: 1
+    image:
+      repository: harbor.contezza.nl/quay.io/alfresco/alfresco-pdf-renderer
+
+  imagemagick:
+    replicaCount: 1
+    image:
+      repository: harbor.contezza.nl/quay.io/alfresco/alfresco-imagemagick
+
+  libreoffice:
+    replicaCount: 1
+    image:
+      repository: harbor.contezza.nl/quay.io/alfresco/alfresco-libreoffice
+
+  tika:
+    replicaCount: 1
+    image:
+      repository: harbor.contezza.nl/quay.io/alfresco/alfresco-tika
+
+  filestore:
+    image:
+      repository: harbor.contezza.nl/quay.io/alfresco/alfresco-shared-file-store
+
+  transformmisc:
+    enabled: false
+
+  alfresco-digital-workspace:
+    enabled: false
+  alfresco-sync-service:
+    syncservice:
+      enabled: false
+  postgresql-syncservice:
+    enabled: false
+  ai:
+    enabled: false
+  s3connector:
+    enabled: false
+  email:
+    server:
+      enabled: false
+    inbound:
+      enabled: false
+  imap:
+    server:
+      enabled: false
+  # alfresco-search:
+  #   searchServicesImage:
+  #     repository: alfresco/alfresco-search-services
+  #   replication:
+  #     enabled: true
+  #     persistence:
+  #       volumeSizeRequest: 25Gi
+  #       storageClassName: "default"
+# For search dependency chart
+global:
+  alfrescoRegistryPullSecrets: regcred
+
+alfresco-search:
+  enabled: true
+  searchServicesImage:
+    repository: alfresco/alfresco-search-services
+  repository:
+    # The value for "host" is the name of this chart
+    host: alfresco-cs
+    port: 80

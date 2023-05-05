@@ -1,0 +1,5 @@
+global:
+  alfrescoRegistryPullSecrets: regcred
+  tracking:
+    auth: secret
+    sharedsecret: secret
