@@ -189,9 +189,13 @@ spec:
             - name: email-keystore-volume
               mountPath: /var/run/secrets/java.io/keystores
       {{- end }}
+      {{- if .Values.repository.serviceAccountName }}
       serviceAccountName: {{ .Values.repository.serviceAccountName }}
+      {{- end }}
       volumes:
+      {{- if not .Values.repository.serviceAccountName }}
       {{- include "data_volume" .Values.repository | nindent 8 }}
+      {{- end }}
       {{- if and (index .Values "alfresco-search" "enabled") (eq .Values.global.tracking.auth "secret") }}
         - name: repository-properties
           secret:
