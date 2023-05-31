@@ -95,6 +95,7 @@ spec:
             mountPath: /usr/local/tomcat/shared/classes/alfresco/extension/custom-log4j2.properties
             subPath: custom-log4j2.properties
           {{- end }}
+          {{- if .Values.repository.extraVolumeMounts }}
 {{ toYaml .Values.repository.extraVolumeMounts | indent 10 }}
           {{- end }}
           startupProbe:
