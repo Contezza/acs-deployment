@@ -71,7 +71,6 @@ repository:
     runAsNonRoot: true
     runAsUser: 33000
     runAsGroup: 1000
-    fsGroup: 1000
   resources:
     requests:
       cpu: "1"
