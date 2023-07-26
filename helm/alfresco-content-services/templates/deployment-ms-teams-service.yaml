@@ -20,6 +20,9 @@ spec:
     metadata:
       annotations:
         checksum/config: {{ include (print $.Template.BasePath "/config-ms-teams-service.yaml") . | sha256sum }}
+        {{- with .Values.msTeamsService.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
       labels:
         {{- include "ms-teams-service.selectorLabels" . | nindent 8 }}
     spec:

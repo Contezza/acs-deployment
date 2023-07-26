@@ -20,6 +20,9 @@ spec:
     metadata:
       annotations:
         checksum/config: {{ include (print $.Template.BasePath "/config-libreoffice.yaml") . | sha256sum }}
+        {{- with .Values.libreoffice.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
       labels:
         {{- include "libreoffice.selectorLabels" . | nindent 8 }}
     spec:

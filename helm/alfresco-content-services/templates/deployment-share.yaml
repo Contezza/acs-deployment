@@ -21,6 +21,9 @@ spec:
     metadata:
       annotations:
         checksum/config: {{ include (print $.Template.BasePath "/config-share.yaml") . | sha256sum }}
+        {{- with .Values.share.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
       labels:
         {{- include "share.selectorLabels" . | nindent 8 }}
     spec:

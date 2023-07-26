@@ -19,6 +19,9 @@ spec:
     metadata:
       annotations:
         checksum/config: {{ include (print $.Template.BasePath "/config-pdfrenderer.yaml") . | sha256sum }}
+        {{- with .Values.pdfrenderer.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
       labels:
         {{- include "pdfrenderer.selectorLabels" . | nindent 8 }}
     spec:

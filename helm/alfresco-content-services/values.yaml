@@ -140,6 +140,7 @@ ooiService:
     #  - secretName: chart-example-tls
     #    hosts:
     #      - chart-example.local
+  podAnnotations: {}
   podSecurityContext:
     runAsNonRoot: true
     runAsUser: 33006
@@ -181,6 +182,7 @@ msTeamsService:
     #  - secretName: chart-example-tls
     #    hosts:
     #      - chart-example.local
+  podAnnotations: {}
   podSecurityContext:
     runAsNonRoot: true
     runAsUser: 33041
@@ -238,6 +240,7 @@ transformrouter:
     initialDelaySeconds: 140
     periodSeconds: 120
     timeoutSeconds: 60
+  podAnnotations: {}
   podSecurityContext:
     runAsNonRoot: true
     runAsUser: 33016
@@ -262,6 +265,7 @@ pdfrenderer:
     name: pdfrenderer
     type: ClusterIP
     externalPort: 80
+  podAnnotations: {}
   podSecurityContext:
     runAsNonRoot: true
     runAsUser: 33001
@@ -302,6 +306,7 @@ imagemagick:
     name: imagemagick
     type: ClusterIP
     externalPort: 80
+  podAnnotations: {}
   podSecurityContext:
     runAsNonRoot: true
     runAsUser: 33002
@@ -349,6 +354,7 @@ libreoffice:
     limits:
       cpu: "4"
       memory: "1000Mi"
+  podAnnotations: {}
   podSecurityContext:
     runAsNonRoot: true
     runAsUser: 33003
@@ -382,6 +388,7 @@ tika:
     name: tika
     type: ClusterIP
     externalPort: 80
+  podAnnotations: {}
   podSecurityContext:
     runAsNonRoot: true
     runAsUser: 33004
@@ -423,6 +430,7 @@ transformmisc:
     name: transformmisc
     type: ClusterIP
     externalPort: 80
+  podAnnotations: {}
   podSecurityContext:
     runAsNonRoot: true
     runAsUser: 33006
@@ -461,6 +469,7 @@ aiTransformer:
     name: ai-transformer
     type: ClusterIP
     externalPort: 80
+  podAnnotations: {}
   podSecurityContext:
     runAsUser: 33015
   resources:
@@ -509,6 +518,7 @@ filestore:
     name: filestore
     type: ClusterIP
     externalPort: 80
+  podAnnotations: {}
   podSecurityContext:
     runAsUser: 33030
     runAsGroup: 1000
@@ -576,6 +586,7 @@ share:
       drop:
         - NET_RAW
         - ALL
+  podAnnotations: {}
   podSecurityContext:
     runAsNonRoot: true
   resources:
